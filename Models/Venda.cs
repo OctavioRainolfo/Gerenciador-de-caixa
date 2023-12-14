@@ -7,6 +7,6 @@
         public int Quantidade { get; set; }
         public double Valor { get; set; }
         public double Total { get; set; }
-        public ICollection<Produto> Produtos { get; set; }
+        public required ICollection<Produto> Produtos { get; set; }
     }
 }

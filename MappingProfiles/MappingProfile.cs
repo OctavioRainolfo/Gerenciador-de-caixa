@@ -7,8 +7,8 @@ public class MappingProfile : Profile
     public MappingProfile()
     {
         CreateMap<Produto, ProdutoDto>().ReverseMap();
-        //CreateMap<Produto, ProdutoCreateDto>().ReverseMap();
-        //CreateMap<Produto, ProdutoUpdateDto>().ReverseMap();
-        //CreateMap<Produto, ProdutoPatchDto>().ReverseMap();
+        CreateMap<Transacao, TransacaoDto>().ReverseMap();
+        CreateMap<Venda, VendaDto>().ReverseMap();
+        CreateMap<PrestacaoDeServicos, PrestacaoDeServicosDto>().ReverseMap();
     }
 }

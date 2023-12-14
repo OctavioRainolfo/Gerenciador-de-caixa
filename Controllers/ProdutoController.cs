@@ -65,40 +65,23 @@ namespace Gerenciador_de_caixa.Controllers
             return NoContent();
         }
 
-        //PUT: api/Produtos/5
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutProduto(int id, ProdutoDto produto)
+        //PUT: api/Produtos
+        [HttpPut]
+        public async Task<IActionResult> EditarProduto(EditarProdutoDto produto)
         {
+            var produtoExiste = await _context.Produtos.FindAsync(produto.Id);
 
-            if (!await ProdutoExists(id))
+            if (produtoExiste == null)
             {
                 return NotFound();
             }
 
-            Produto produtoModel = _mapper.Map<Produto>(produto);
-            produtoModel.Id = id; // Set the ID from the URL
-            _context.Entry(produtoModel).State = EntityState.Modified;
+            _mapper.Map(produto, produtoExiste);
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-            }
-            return NoContent();
+            await _context.SaveChangesAsync();
+
+            return Ok(produtoExiste);
         }
 
-        //validate if the product exists
-        private async Task<bool> ProdutoExists(int id)
-        {
-            var produtoExiste = await _context.Produtos.FindAsync(id);
-
-            if (produtoExiste == null)
-            {
-                return false;
-            }
-            return true;
-        }
     }
 }
